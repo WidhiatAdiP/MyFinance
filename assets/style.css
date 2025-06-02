@@ -1,0 +1,1210 @@
+/* ================================
+   Fonts & Reset
+================================= */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body.light-mode {
+    --bg-color: #f5f7fa;
+    --text-color: #212121;
+    --primary-color: #4f46e5;
+    /* violet-blue */
+    --primary-gradient: linear-gradient(135deg, #667eea, #764ba2);
+    --card-bg: #fff;
+    --card-shadow: rgba(0, 0, 0, 0.1);
+    --sidebar-bg: #fff;
+    --sidebar-text: #333;
+    --hover-bg: #eef2ff;
+    --income-color: #16a34a;
+    /* green */
+    --expense-color: #dc2626;
+    /* red */
+    --toggle-bg: #e0e7ff;
+    --toggle-circle: #4f46e5;
+}
+
+body.dark-mode {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --primary-color: #a78bfa;
+    /* light violet */
+    --primary-gradient: linear-gradient(135deg, #a78bfa, #6b21a8);
+    --card-bg: #1e1e2f;
+    --card-shadow: rgba(0, 0, 0, 0.7);
+    --sidebar-bg: #1f1f2e;
+    --sidebar-text: #ddd;
+    --hover-bg: #2c2c3f;
+    --income-color: #22c55e;
+    /* green */
+    --expense-color: #ef4444;
+    /* red */
+    --toggle-bg: #4b4b67;
+    --toggle-circle: #a78bfa;
+}
+
+.theme-toggle {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+}
+
+.toggle-track {
+    width: 50px;
+    height: 26px;
+    background-color: var(--toggle-bg);
+    border-radius: 999px;
+    position: relative;
+    transition: background-color 0.3s ease;
+}
+
+.toggle-thumb {
+    width: 24px;
+    height: 24px;
+    background-color: var(--card-bg);
+    border-radius: 50%;
+    position: absolute;
+    top: 1px;
+    left: -3px;
+    overflow: hidden;
+    transition: transform 0.4s ease;
+}
+
+body.dark-mode .toggle-thumb {
+    transform: translateX(24px);
+}
+
+#iconSun,
+#iconMoon {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-55%, -50%);
+    transition: opacity 0.3s ease;
+}
+
+body.light-mode #iconMoon {
+    opacity: 0;
+}
+
+body.dark-mode #iconSun {
+    opacity: 0;
+}
+
+a.disabled {
+    pointer-events: none;
+    /* tidak bisa diklik */
+    opacity: 0.5;
+    /* tampil lebih redup */
+    cursor: default;
+    /* cursor default */
+    color: gray;
+    /* warna teks abu */
+}
+
+.btn-kembali {
+    margin-top: 10px;
+    background-color: #ccc;
+    color: #333;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-kembali:hover {
+    background-color: #bbb;
+}
+
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.5s ease, color 0.5s ease;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+}
+
+/* ================================
+   App Container & Layout
+================================= */
+.app-container {
+    width: 100%;
+    max-width: 1200px;
+    background-color: var(--card-bg);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px var(--card-shadow);
+    overflow: hidden;
+    display: flex;
+    min-height: 80vh;
+}
+
+.layout {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+/* ================================
+   Sidebar Styles
+================================= */
+.sidebar {
+    width: 260px;
+    background: var(--sidebar-bg);
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    border-right: 1px solid var(--hover-bg);
+    box-shadow: 2px 0 12px var(--card-shadow);
+    transition: background-color 0.5s ease, color 0.5s ease;
+    position: relative;
+}
+
+.sidebar h3 {
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    letter-spacing: 2px;
+    user-select: none;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.sidebar ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex-grow: 1;
+}
+
+.sidebar ul li a {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+    font-weight: 600;
+    color: var(--sidebar-text);
+    text-decoration: none;
+    overflow: hidden;
+    z-index: 1;
+    transition: color 0.3s ease;
+}
+
+.sidebar ul li a:hover {
+    background: linear-gradient(270deg, #6366f1, #3b82f6, #6366f1);
+    background-size: 600% 600%;
+    animation: wave-bg 3s ease 1 forwards;
+    /* sekali jalan */
+    color: #fff;
+    box-shadow: 0 4px 15px var(--primary-color);
+}
+
+.sidebar ul li a.active {
+    background: #3b82f6;
+    color: #fff;
+    box-shadow: 0 4px 15px var(--primary-color);
+    animation: none !important;
+}
+
+/* Icon inside sidebar link */
+.sidebar ul li a .icon svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+    transition: transform 0.3s ease;
+}
+
+.sidebar ul li a:hover .icon svg {
+    transform: scale(1.2);
+}
+
+/* Glare/shine effect on hover */
+.sidebar ul li a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(120deg,
+            transparent,
+            rgba(255, 255, 255, 0.25),
+            transparent);
+    transform: skewX(-20deg);
+    z-index: -1;
+    transition: left 0.75s ease;
+}
+
+.sidebar ul li a:hover::before {
+    left: 100%;
+}
+
+/* Logout button */
+.sidebar .btn-logout {
+    background: #ef4444;
+    color: white;
+    font-weight: 700;
+    text-align: center;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    justify-content: center;
+}
+
+.sidebar .btn-logout:hover {
+    background: #dc2626;
+    box-shadow: 0 6px 15px rgba(220, 38, 38, 0.8);
+}
+
+/* Background animation */
+@keyframes wave-bg {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Animasi wave saat klik */
+.sidebar ul li a.clicked {
+    animation: wave-click 3s ease 1 forwards;
+}
+
+/* Animasi wave saat diklik */
+@keyframes wave-click {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* ================================
+   Toggle Dark/Light Mode Button
+================================= */
+#toggleThemeBtn,
+.dark-mode-toggle {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--toggle-bg);
+    border: none;
+    width: 48px;
+    height: 24px;
+    border-radius: 9999px;
+    cursor: pointer;
+    box-shadow: 0 0 8px transparent;
+    transition: background-color 0.4s ease, box-shadow 0.3s ease;
+    display: flex;
+    align-items: center;
+    padding: 0 4px;
+    user-select: none;
+    z-index: 10;
+}
+
+#toggleThemeBtn:hover,
+.dark-mode-toggle:hover {
+    box-shadow: 0 0 15px var(--primary-color);
+}
+
+#toggleThemeBtn svg,
+.dark-mode-toggle svg {
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+}
+
+#toggleThemeBtn .hidden,
+.dark-mode-toggle .hidden {
+    display: none;
+}
+
+.dark-mode-toggle {
+    width: 50px;
+    height: 26px;
+    background: var(--toggle-bg);
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 99;
+    justify-content: flex-start;
+    padding: 3px;
+}
+
+.dark-mode-toggle .toggle-circle {
+    width: 20px;
+    height: 20px;
+    background: var(--toggle-circle);
+    border-radius: 50%;
+    transition: transform 0.4s ease;
+}
+
+.dark-mode-toggle.dark .toggle-circle {
+    transform: translateX(24px);
+}
+
+/* ================================
+   Main Content
+================================= */
+.main-content {
+    flex-grow: 1;
+    padding: 2rem 3rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* ================================
+   Dashboard Wrapper & Header
+================================= */
+.dashboard-wrapper h2,
+.header-flex h2 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    user-select: none;
+}
+
+.header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-flex .btn-add {
+    background: var(--primary-gradient);
+    color: white;
+    font-weight: 700;
+    padding: 0.7rem 1.6rem;
+    border-radius: 14px;
+    border: none;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    user-select: none;
+    text-decoration: none;
+}
+
+.header-flex .btn-add:hover {
+    box-shadow: 0 10px 25px var(--primary-color);
+    transform: translateY(-2px);
+}
+
+/* ================================
+   Summary Box Cards (Dashboard)
+================================= */
+.summary-box {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    background: var(--card-bg);
+    box-shadow: 0 5px 15px var(--card-shadow);
+    padding: 1.8rem 2.4rem;
+    border-radius: 18px;
+    flex: 1 1 280px;
+    max-width: 320px;
+    user-select: none;
+    transition: box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.card h4 {
+    color: var(--primary-color);
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.card p {
+    font-size: 1.7rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--text-color);
+}
+
+.card.income p {
+    color: var(--income-color);
+}
+
+.card.expense p {
+    color: var(--expense-color);
+}
+
+.card.balance p {
+    color: var(--primary-color);
+}
+
+/* ================================
+   Table Styles (Transaksi)
+================================= */
+.table-responsive {
+    overflow-x: auto;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px var(--card-shadow);
+    background: var(--card-bg);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+thead tr {
+    background: var(--primary-gradient);
+    color: white;
+    user-select: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+thead tr th {
+    padding: 1rem 1.2rem;
+    text-align: left;
+}
+
+tbody tr {
+    border-bottom: 1px solid var(--hover-bg);
+    transition: background-color 0.3s ease;
+    cursor: default;
+}
+
+tbody tr td {
+    padding: 1rem 1.2rem;
+    vertical-align: middle;
+    color: var(--text-color);
+    font-size: 0.95rem;
+}
+
+.text-income {
+    color: var(--income-color);
+    font-weight: 600;
+}
+
+.text-expense {
+    color: var(--expense-color);
+    font-weight: 600;
+}
+
+/* ================================
+   Buttons in Table
+================================= */
+.btn {
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.btn-small {
+    padding: 0.4rem 0.7rem;
+    font-size: 0.85rem;
+}
+
+.btn-edit {
+    background: var(--primary-gradient);
+    color: #fff;
+    text-decoration: none;
+    /* box-shadow: 0 4px 12px var(--primary-color); */
+}
+
+.btn-edit:hover {
+    box-shadow: 0 7px 20px var(--primary-color);
+    transform: translateY(-2px);
+}
+
+
+.btn-delete {
+    background-color: #ef4444;
+    color: white;
+    text-decoration: none;
+    /* box-shadow: 0 4px 12px rgba(239, 68, 68, 0.8); */
+}
+
+.btn-delete:hover {
+    box-shadow: 0 7px 25px rgba(239, 68, 68, 1);
+    transform: translateY(-2px);
+}
+
+/* ================================
+   Filter Form
+================================= */
+.filter-form {
+    margin-bottom: 1.5rem;
+    user-select: none;
+}
+
+.filter-form label {
+    font-weight: 600;
+    margin-right: 0.6rem;
+    color: var(--primary-color);
+    font-size: 1rem;
+}
+
+.filter-form select {
+    padding: 0.5rem 1rem;
+    border-radius: 14px;
+    border: 2px solid var(--primary-color);
+    background: var(--card-bg);
+    color: var(--text-color);
+    font-weight: 600;
+    transition: border-color 0.3s ease;
+    cursor: pointer;
+}
+
+.filter-form select:hover,
+.filter-form select:focus {
+    border-color: var(--income-color);
+    outline: none;
+}
+
+/* ================================
+  Responsive
+  ================================= */
+@media (max-width: 1024px) {
+    .app-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        flex-direction: row;
+        padding: 1rem;
+        overflow-x: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--hover-bg);
+    }
+
+    .sidebar h3 {
+        flex: 1 0 auto;
+        font-size: 1.4rem;
+        text-align: left;
+    }
+
+    .sidebar ul {
+        flex-direction: row;
+        gap: 1rem;
+        overflow-x: auto;
+        flex-grow: 0;
+    }
+
+    .sidebar ul li a {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .main-content {
+        padding: 1.5rem 1rem;
+    }
+
+    .summary-box {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 1rem;
+    }
+
+    .card {
+        flex: 0 0 240px;
+        max-width: 240px;
+    }
+
+    table {
+        min-width: 500px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar h3 {
+        display: none;
+    }
+
+    .sidebar ul li a {
+        font-size: 0;
+        padding: 0.5rem;
+        justify-content: center;
+    }
+
+    .sidebar ul li a .icon svg {
+        width: 26px;
+        height: 26px;
+    }
+
+    .main-content {
+        padding: 1rem;
+    }
+
+    .header-flex h2 {
+        font-size: 1.6rem;
+    }
+}
+
+/* ========================= */
+/* FORM TAMBAH TRANSAKSI    */
+/* ========================= */
+
+.tambah-transaksi-page .main-content {
+    padding: 3rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background: var(--background-color, #fafafa);
+}
+
+/* Base styling form */
+.form-tambah {
+    padding: 2.5rem 2rem;
+    border-radius: 18px;
+    max-width: 620px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: relative;
+    z-index: 2;
+    border: 1px solid transparent;
+    /* box-shadow dihapus untuk tampilan flat */
+    box-shadow: none !important;
+    transition: all 0.3s ease;
+}
+
+/* Light Mode */
+body.light-mode .form-tambah {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    color: #1a202c;
+    box-shadow: none !important;
+}
+
+body.light-mode .form-tambah label {
+    color: #2d3748;
+}
+
+body.light-mode .form-tambah input,
+body.light-mode .form-tambah select {
+    background-color: #f7fafc;
+    border: 1px solid #cbd5e0;
+    color: #1a202c;
+    box-shadow: none !important;
+}
+
+body.light-mode .form-tambah input:focus,
+body.light-mode .form-tambah select:focus {
+    border-color: #3182ce;
+    background-color: #edf2f7;
+    box-shadow: none !important;
+}
+
+/* Light mode background */
+body.light-mode .main-content {
+    background: #f0f4f8;
+}
+
+/* Dark Mode */
+body.dark-mode .form-tambah {
+    background: #1e1f26;
+    border-color: #2c2d36;
+    color: #f0f0f0;
+    box-shadow: none !important;
+}
+
+body.dark-mode .form-tambah label {
+    color: #d0d3dc;
+}
+
+body.dark-mode .form-tambah input,
+body.dark-mode .form-tambah select {
+    background-color: #2a2c36;
+    border: 1px solid #444856;
+    color: #f0f0f0;
+}
+
+body.dark-mode .form-tambah input:focus,
+body.dark-mode .form-tambah select:focus {
+    border-color: #4b9fff;
+    background-color: #323544;
+}
+
+/* Hapus background blur shadow di dark mode */
+body.dark-mode .main-content {
+    background: #14151b;
+}
+
+body.dark-mode .main-content::before {
+    display: none;
+}
+
+/* Button */
+.form-tambah button {
+    background: linear-gradient(135deg, #4b9fff, #006aff);
+    color: white;
+    padding: 0.75rem 1.25rem;
+    border: none;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    box-shadow: none !important;
+}
+
+.form-tambah button:hover {
+    background: linear-gradient(135deg, #006aff, #004bcc);
+}
+
+/* Remove box-shadow in dark mode form */
+.tambah-transaksi-page.dark-mode .form-tambah {
+    background: #111;
+    color: #f0f0f0;
+    box-shadow: none !important;
+}
+
+.tambah-transaksi-page h2 {
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    text-align: center;
+    background: linear-gradient(90deg, #ff6ec4, #7873f5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Label & Input */
+.form-tambah label {
+    font-weight: 600;
+    color: #d0d3dc;
+}
+
+.form-tambah input,
+.form-tambah select {
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    border: 1px solid #444856;
+    background-color: #2a2c36;
+    color: #fff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: none !important;
+}
+
+.tambah-transaksi-page.dark-mode .form-tambah input,
+.tambah-transaksi-page.dark-mode .form-tambah select {
+    background: #333;
+    color: #f0f0f0;
+    box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05);
+}
+
+.form-tambah input:focus,
+.form-tambah select:focus {
+    border-color: #4b9fff;
+    outline: none;
+    background-color: #323544;
+    box-shadow: none !important;
+}
+
+/* Tombol */
+.form-tambah button[type="submit"] {
+    background: linear-gradient(135deg, #4b9fff, #006aff);
+    color: white;
+    padding: 0.75rem 1.25rem;
+    border: none;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    box-shadow: none !important;
+}
+
+.form-tambah button:hover {
+    background: linear-gradient(135deg, #006aff, #004bcc);
+}
+
+.form-tambah button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(72, 187, 120, 0.6);
+}
+
+/* Responsif */
+@media (max-width: 640px) {
+    .form-tambah {
+        padding: 2rem 1.5rem;
+    }
+}
+
+.tambah-transaksi-page .main-content {
+    padding: 3rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    position: relative;
+    background: #f4f4f4;
+}
+
+.tambah-transaksi-page.dark-mode .main-content::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 80%;
+    height: 80%;
+    background: rgba(0, 0, 0, 0.4);
+    filter: blur(80px);
+    z-index: 1;
+}
+
+/* Dark mode main background mengikuti tema sidebar */
+.tambah-transaksi-page.dark-mode .main-content {
+    background: #14151b;
+}
+
+/* ================================
+   Responsive Update (Tambahan Saja)
+   Tidak merubah struktur yang ada
+================================= */
+
+.sidebar,
+.sidebar ul,
+.sidebar ul li a,
+.sidebar ul li a .icon,
+.sidebar ul li a .text {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Sidebar mengecil, hanya ikon */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 70px;
+        padding: 1rem 0.5rem;
+        align-items: center;
+    }
+
+    .sidebar h3 {
+        display: none;
+    }
+
+    .sidebar ul {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .sidebar ul li a {
+        font-size: 0;
+        padding: 0.6rem;
+        justify-content: center;
+    }
+
+    .sidebar ul li a .icon svg {
+        width: 26px;
+        height: 26px;
+    }
+
+    .sidebar ul li a .text {
+        display: none;
+    }
+}
+
+/* Dashboard dan tambah transaksi isi kontennya jadi vertikal */
+@media (max-width: 768px) {
+    .summary-box {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .form-container {
+        width: 100%;
+        padding: 1.5rem 1rem;
+    }
+}
+
+/* ================================
+   Sidebar kecil: hanya icon, tanpa teks
+================================= */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 70px;
+        padding: 1rem 0.5rem;
+        align-items: center;
+    }
+
+    .sidebar h3 {
+        display: none;
+        /* sembunyikan judul sidebar */
+    }
+
+    .sidebar ul {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .sidebar ul li a {
+        font-size: 0;
+        /* sembunyikan teks dengan font size 0 */
+        padding: 0.6rem;
+        justify-content: center;
+    }
+
+    .sidebar ul li a .icon svg,
+    .sidebar ul li a .icon {
+        width: 26px;
+        height: 26px;
+        font-size: 26px;
+    }
+
+    .sidebar ul li a .text {
+        display: none;
+        /* sembunyikan teks */
+    }
+}
+
+/* ================================
+     Sidebar berubah jadi bottom nav
+  ================================= */
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+        background-color: #1f1f1f;
+        /* sesuaikan tema */
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        padding: 0.5rem 0;
+        z-index: 1000;
+    }
+
+    .sidebar ul {
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        gap: 0;
+    }
+
+    .sidebar ul li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .sidebar ul li a {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0.5rem 0;
+        font-size: 0;
+        /* sembunyikan teks */
+    }
+
+    .sidebar ul li a .icon {
+        margin: 0;
+        font-size: 1.4rem;
+    }
+
+    .sidebar ul li a .text {
+        display: none;
+        /* sembunyikan teks */
+    }
+}
+
+@media (max-width: 768px) {
+    #toggleThemeBtn {
+        top: 1rem;
+        right: 1rem;
+        bottom: auto;
+        left: auto;
+    }
+}
+
+.swal2-confirm-custom,
+.swal2-cancel-custom {
+    border-radius: 0.6rem !important;
+    padding: 0.6rem 1.2rem !important;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.swal2-title-custom {
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.swal2-text-custom {
+    font-size: 1rem;
+    margin-top: 0.5rem;
+}
+
+/* === Halaman Profil Baru === */
+.profile-page .dashboard-wrapper {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.profile-header h2 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.profile-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.profile-card {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.profile-card:hover {
+    transform: translateY(-4px);
+}
+
+.profile-card h4 {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.profile-card p {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 0.4rem;
+}
+
+.profile-card .btn-action {
+    margin-top: 1rem;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s ease;
+}
+
+.profile-card .btn-action:hover {
+    background: #6a4fff;
+}
+
+/* === Mode Gelap untuk Halaman Profil === */
+body.dark-mode .profile-page .profile-card {
+    background: #2a2a3c;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6);
+    /* glow warna hitam lembut */
+    color: #ddd;
+}
+
+
+body.dark-mode .profile-page .profile-card h4 {
+    color: #a689ff;
+    /* warna ungu lembut untuk judul */
+}
+
+body.dark-mode .profile-page .profile-card p {
+    color: #ccc;
+}
+
+body.dark-mode .profile-page .btn-action {
+    background: #7b5cff;
+    color: #fff;
+}
+
+body.dark-mode .profile-page .btn-action:hover {
+    background: #a689ff;
+}
+
+.profile-card {
+    position: relative;
+    background: linear-gradient(135deg, #ffffff, #f4f4f4);
+    border: 1px solid #eaeaea;
+}
+
+body.dark-mode .profile-page .profile-card {
+    background: linear-gradient(135deg, #2a2a3c, #1e1e2f);
+}
+
+.profile-card h4::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.profile-card h4 .icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  
